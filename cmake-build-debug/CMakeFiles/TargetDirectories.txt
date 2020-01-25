@@ -1,3 +1,0 @@
-/Users/soleperson/CLionProjects/SolepersonORM/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/soleperson/CLionProjects/SolepersonORM/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/soleperson/CLionProjects/SolepersonORM/cmake-build-debug/CMakeFiles/SolepersonORM.dir
