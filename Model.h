@@ -8,9 +8,14 @@
 #include <string>
 #include <iostream>
 
-class BaseModel
+class BaseField
 {
-
+    std::string _type;
+public:
+    std::string GetType()
+    {
+        return _type;
+    }
 };
 
 #endif //SOLEPERSONORM_MODEL_H
