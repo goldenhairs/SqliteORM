@@ -1,6 +1,5 @@
-#include "Model.h"
-
-
+# 代码示例
+```c++
 class Cash : public Table{
     PrimaryField *_id = new PrimaryField;
     IntegerField *_date = new IntegerField("Date", 8);
@@ -12,14 +11,14 @@ class Cash : public Table{
 public:
     Cash(){
         _name.assign("cash");
-
+        
         insertField(_id);
         insertField(_date);
         insertField(_investment);
         insertField(_worth);
         insertField(_share);
         insertField(_fee);
-
+        
         setSql();
     }
 };
@@ -29,3 +28,7 @@ int main(int argc, const char * argv[]) {
     c.show();
     return 0;
 }
+```
+
+## 输出结果
+> CREATE TABLE cash(ID INTEGER PRIMARY KEY AUTOINCREMENT,Date INTEGER(8) NOT NULL,Investment INTEGER NOT NULL,Worth REAL NOT NULL,Share REAL NOT NULL,Fee REAL NOT NULL);
