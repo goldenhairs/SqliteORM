@@ -28,7 +28,7 @@ public:
     ~PrimaryField() = default;
 
     int getValue(){return _value;}
-    std::string getSql(){
+    std::string getSql() override{
         std::string res = "ID INTEGER PRIMARY KEY AUTOINCREMENT";
         return res;
     }
@@ -41,7 +41,7 @@ class IntegerField : public BaseField{
     int _max_length = 0;
 
 public:
-    IntegerField(std::string name, int maxLength = 0, bool noNull = true){
+    explicit IntegerField(const std::string& name, int maxLength = 0, bool noNull = true){
         _name.assign(name);
         _value = 0;
         _max_length = maxLength;
@@ -50,7 +50,7 @@ public:
     ~IntegerField() = default;
 
     int getValue(){return _value;}
-    std::string getSql(){
+    std::string getSql() override{
         std::string res = _name + " INTEGER";
         if(_max_length > 0)
             res.append("(" + std::to_string(_max_length) + ")");
@@ -66,7 +66,7 @@ class BlobField : public BaseField{
     bool _value;
 
 public:
-    BlobField(std::string name, bool noNull = true){
+    explicit BlobField(const std::string& name, bool noNull = true){
         _name.assign(name);
         _value = false;
         _no_null = noNull;
@@ -74,7 +74,7 @@ public:
     ~BlobField() = default;
 
     bool getValue(){return _value;}
-    std::string getSql(){
+    std::string getSql() override{
         std::string res = _name + " BLOB";
         if(_no_null)
             res.append(" NOT NULL");
@@ -89,7 +89,7 @@ class RealField : public BaseField{
     int _max_length = 0;
 
 public:
-    RealField(std::string name, int maxLength = 0, bool noNull = true){
+    explicit RealField(const std::string& name, int maxLength = 0, bool noNull = true){
         _name.assign(name);
         _value = 0.0;
         _max_length = maxLength;
@@ -98,7 +98,7 @@ public:
     ~RealField() = default;
 
     double getValue(){return _value;}
-    std::string getSql(){
+    std::string getSql() override{
         std::string res = _name + " REAL";
         if(_max_length > 0)
             res.append("(" + std::to_string(_max_length) + ")");
@@ -114,7 +114,7 @@ class TextField : public BaseField{
     int _max_length = 0;
 
 public:
-    TextField(std::string name, int maxLength = 0, bool noNull = true){
+    explicit TextField(const std::string& name, int maxLength = 0, bool noNull = true){
         _name.assign(name);
         _value.assign("");
         _max_length = maxLength;
@@ -123,7 +123,7 @@ public:
     ~TextField() = default;
 
     std::string getValue(){return _value;}
-    std::string getSql(){
+    std::string getSql() override{
         std::string res = _name + " TEXT";
         if(_max_length > 0)
             res.append("(" + std::to_string(_max_length) + ")");
@@ -131,7 +131,7 @@ public:
             res.append(" NOT NULL");
         return res;
     }
-    void setValue(std::string value){_value.assign(value);}
+    void setValue(const std::string& value){_value.assign(value);}
 };
 
 class Table{
@@ -165,4 +165,4 @@ public:
     }
 };
 
-#endif /* Field_h */
+#endif
