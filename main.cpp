@@ -2,6 +2,7 @@
 
 
 class Cash : public Table{
+public:
     PrimaryField *_id = new PrimaryField;
     IntegerField *_date = new IntegerField("Date", 8);
     IntegerField *_investment = new IntegerField("Investment");
@@ -9,7 +10,6 @@ class Cash : public Table{
     RealField *_share = new RealField("Share");
     RealField *_fee = new RealField("Fee");
 
-public:
     Cash(){
         _name.assign("cash");
 
