@@ -8,6 +8,8 @@
 *.o
 *.obj
 *.cmake
+a.out
+*.db
 
 # Precompiled Headers
 *.gch
