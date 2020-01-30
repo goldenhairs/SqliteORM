@@ -26,6 +26,8 @@ public:
 
 int main(int argc, const char * argv[]) {
     Cash c;
-    c.show();
+
+    Session s("./cash.db");
+
     return 0;
 }

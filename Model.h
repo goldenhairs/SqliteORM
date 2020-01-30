@@ -4,6 +4,24 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#include"sqlite3.h"
+
+class Session{
+    sqlite3 *_database = nullptr;
+
+public:
+    Session(const std::string& _filename){
+        if(sqlite3_open(_filename.c_str(), &_database)){
+            std::cout << "Can't open database" << std::endl;
+            exit(0);
+        }else{
+            std::cout << "Open database successfully" << std::endl;
+        }
+    }
+    ~Session(){
+        sqlite3_close(_database);
+    }
+};
 
 class BaseField{
 
@@ -164,5 +182,4 @@ public:
         std::cout << _sql << std::endl;
     }
 };
-
 #endif
