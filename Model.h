@@ -6,11 +6,20 @@
 #include<vector>
 #include"sqlite3.h"
 
+static int callback(void *NotUsed, int argc, char **argv, char **azColName){
+    int i;
+    for(i=0; i<argc; i++){
+        printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+    }
+    printf("\n");
+    return 0;
+}
+
 class Session{
+public:
     sqlite3 *_database = nullptr;
 
-public:
-    Session(const std::string& _filename){
+    explicit Session(const std::string& _filename){
         if(sqlite3_open(_filename.c_str(), &_database)){
             std::cout << "Can't open database" << std::endl;
             exit(0);
@@ -164,7 +173,7 @@ public:
         pvf.push_back(bf);
     }
 
-    std::string getSql(){
+    std::string _getSql(){
         std::string res = "CREATE TABLE " + _name + "(" + pvf[0]->getSql();
 
         for(int i = 1; i < pvf.size(); i++)
@@ -174,12 +183,28 @@ public:
         return res;
     }
 
+    std::string getSql(){return _sql;}
     void setSql(){
-        _sql.assign(getSql());
+        _sql.assign(_getSql());
     }
 
     void show(){
         std::cout << _sql << std::endl;
+    }
+
+    void createTable(const Session& s){
+        char *zErrMsg = nullptr;
+        if(!_is_resighered) {
+            if (sqlite3_exec(s._database, _sql.c_str(), callback, 0, &zErrMsg) != SQLITE_OK) {
+                std::cout << "Create table failed" << std::endl;
+                exit(0);
+            } else {
+                std::cout << "Creat table successfully" << std::endl;
+                _is_resighered = true;
+            }
+        }else{
+            std::cout << "Table is exists" << std::endl;
+        }
     }
 };
 #endif

@@ -29,5 +29,7 @@ int main(int argc, const char * argv[]) {
 
     Session s("./cash.db");
 
+    c.createTable(s);
+
     return 0;
 }
